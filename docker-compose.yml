@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # PHP Frontend Service
+  frontend-service:
+    build: ./frontend
+    container_name: frontend-service
+    ports:
+      - "8001:80"
+    networks:
+      - frontend
+    volumes:
+      - ./frontend:/var/www/html
+    depends_on:
+      - backend-service
+
+  # Node.js Backend Service
+  backend-service:
+    build: ./backend
+    container_name: backend-service
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+      - db
+    depends_on:
+      - db
+
+  # MySQL Database Service
+  db:
+    image: mysql:8
+    container_name: mysql-service
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user_password
+    ports:
+      - "3306:3306"
+    networks:
+      - db
+
+networks:
+  frontend:
+  backend:
+  db:
