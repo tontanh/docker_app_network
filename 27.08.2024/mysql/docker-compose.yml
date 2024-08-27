@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   mysql:
@@ -22,8 +22,8 @@ services:
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
-      PMA_USER: user
-      PMA_PASSWORD: userpassword
+      # PMA_USER: user
+      # PMA_PASSWORD: userpassword
     ports:
       - "8080:80"
     depends_on:
